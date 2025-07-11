@@ -17,7 +17,7 @@ target "build-all" {
   output = [
     {
       type = "local"
-      dest = "docker-output/${item.image}"
+      dest = "docker-output/build-${replace(item.image, ".", "-")}"
     }
   ]
   args = {
