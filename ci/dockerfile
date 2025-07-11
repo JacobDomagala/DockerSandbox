@@ -7,6 +7,6 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
-COPY . .
 
-RUN ci/build.sh
+RUN --mount=target=/DockerSandbox \
+        ci/build.sh

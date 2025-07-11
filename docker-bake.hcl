@@ -24,6 +24,8 @@ target "build-all" {
     BASE_IMAGE = "${item.image}"
   }
 
+  cache-from = [ "type=gha" ]
+  cache-to = [ "type=gha,mode=max" ]
   matrix = {
     item = [
       {
