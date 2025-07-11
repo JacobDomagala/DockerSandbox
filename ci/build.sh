@@ -2,7 +2,10 @@
 
 mkdir -p build
 cd build || exit 1
-rm rf ./*
+rm -rf ./*
 
 cmake CMAKE_CXX_COMPILER="ccache g++" ..
 make
+
+
+ccache -s
