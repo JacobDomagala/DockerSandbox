@@ -3,7 +3,7 @@ FROM ubuntu:${BASE_IMAGE} AS build
 
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y \
-    cmake g++ build-essential && \
+    cmake g++ build-essential ccache && \
     rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
