@@ -17,8 +17,7 @@ make
 
 ccache -s
 
-if [ "${CI_BUILD:-0}" = "1" ]; then
-  CI_CCACHE_DIR=/build/ci/.ccache
+if [ -n "${CI_CCACHE_DIR:-}" ]; then
   mkdir -p "${CI_CCACHE_DIR}"
   cp -a "${CCACHE_DIR}/." "${CI_CCACHE_DIR}/"
 fi

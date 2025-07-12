@@ -58,4 +58,4 @@ jobs:
             *.cache-from=type=gha,scope=${{ matrix.target }}
             *.cache-to=type=gha,scope=${{ matrix.target }},mode=max
             *.output=type=local,dest=docker-output
-            *.args.CI_BUILD=1
+            *.args.CI_CCACHE_DIR="/build/ci/.ccache"

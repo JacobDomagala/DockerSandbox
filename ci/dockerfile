@@ -6,10 +6,10 @@ RUN apt-get update && \
     cmake g++ build-essential ccache && \
     rm -rf /var/lib/apt/lists/*
 
-ARG CI_BUILD
+ARG CI_CCACHE_DIR
 ENV CCACHE_DIR=/build/.ccache \
     CCACHE_COMPILERCHECK=content \
-    CI_BUILD=${CI_BUILD}
+    CI_CCACHE_DIR=${CI_CCACHE_DIR}
 
 ARG BASE_IMAGE
 
