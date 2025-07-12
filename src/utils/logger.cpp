@@ -20,7 +20,7 @@ void Logger::warning(const std::string& message) const {
 }
 
 void Logger::error(const std::string& message) const {
-    std::cerr << "[" << getCurrentTimestamp() << "] [ERROR] [" << m_name << "] " << message << std::endl;
+    std::cerr << "[" << getCurrentTimestamp() << "] [ERRORR] [" << m_name << "] " << message << std::endl;
 }
 
 void Logger::debug(const std::string& message) const {
