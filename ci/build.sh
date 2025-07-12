@@ -16,6 +16,6 @@ make
 ccache -s
 
 mkdir -p ${CI_CCACHE_DIR}
-cp -p ${CCACHE_DIR}/ ${CI_CCACHE_DIR}/
+cp -rp "${CCACHE_DIR}/" "${CI_CCACHE_DIR}/"
 
 ls -a
