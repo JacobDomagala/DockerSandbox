@@ -13,11 +13,9 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       targets: ${{ steps.list-targets.outputs.targets }}
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
       - name: List targets
         id: list-targets
         uses: docker/bake-action/subaction/list-targets@v6
@@ -37,11 +35,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # - uses: actions/cache@v4
-      #   with:
-      #     path: docker-output/${{ matrix.target }}/build/.ccache
-      #     key: ${{ matrix.target }}-${{ github.ref }}-${{ github.sha }}
-      #     restore-keys: ${{ matrix.target }}-${{ github.ref }}
+      - name: Cache ccache
+        uses: actions/cache@v4
+        with:
+          path: tmp/ccache-data
+          key: ccache-${{ matrix.target }}-${{ github.ref }}-${{ github.sha }}
+          restore-keys: |
+            ccache-${{ matrix.target }}-${{ github.ref }}
+            ccache-${{ matrix.target }}-
+
+      - name: Ensure ccache dir
+        run: mkdir -p tmp/ccache-data
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3

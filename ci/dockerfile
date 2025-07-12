@@ -10,6 +10,11 @@ ENV CCACHE_DIR=/build/.ccache \
     CCACHE_COMPILERCHECK=content
 
 ARG BASE_IMAGE
-RUN --mount=type=cache,id=ccache-${BASE_IMAGE},target=/build/.ccache,sharing=locked \
-    --mount=target=/DockerSandbox,rw \
-        /DockerSandbox/ci/build.sh /DockerSandbox/ /build
+
+RUN --mount=target=/DockerSandbox,rw \
+    mkdir -p /build/.ccache && \
+    if [ -d /DockerSandbox/tmp/ccache-data ] && \
+       [ "$(ls -A /DockerSandbox/tmp/ccache-data 2>/dev/null)" ]; then \
+        cp -a /DockerSandbox/tmp/ccache-data/. /build/.ccache/ ; \
+    fi && \
+    /DockerSandbox/ci/build.sh /DockerSandbox /build
