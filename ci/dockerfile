@@ -11,9 +11,10 @@ ENV CCACHE_DIR=/build/.ccache \
 
 ARG BASE_IMAGE
 
-RUN --mount=target=/DockerSandbox \
-    mkdir -p /build/.ccache && \
+RUN --mount=type=cache,id=${BASE_IMAGE},target=${CCACHE_DIR} \
+    --mount=target=/DockerSandbox \
     if [ -d /DockerSandbox/tmp/ccache-data ]; then \
-        cp -a /DockerSandbox/tmp/ccache-data/. /build/.ccache/ ; \
+        cp -a /DockerSandbox/tmp/ccache-data/. ${CCACHE_DIR}/ && \
+        du -sh ${CCACHE_DIR}/; \
     fi && \
     /DockerSandbox/ci/build.sh /DockerSandbox /build

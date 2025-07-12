@@ -60,5 +60,4 @@ jobs:
           set: |
             *.cache-from=type=gha,scope=${{ matrix.target }}
             *.cache-to=type=gha,scope=${{ matrix.target }},mode=max
-      - name: Ensure ccache save
-        run: ls -R tmp/ccache-data
+            *.output=type=local,dest=tmp/ccache-data
