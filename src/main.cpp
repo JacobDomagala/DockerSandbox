@@ -23,7 +23,7 @@ int main(int argc, char* argv[]) {
     std::vector<std::pair<double, double>> testCases = {
         {10.0, 5.0},
         {25.0, 4.0},
-        {100.0, 10.0},
+        {100.0, 11.0},
         {3.14159,32.0}
     };
 
