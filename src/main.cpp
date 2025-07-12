@@ -24,7 +24,7 @@ int main(int argc, char* argv[]) {
         {10.0, 5.0},
         {25.0, 4.0},
         {100.0, 10.0},
-        {3.14159, 2.0}
+        {3.14159,32.0}
     };
 
     logger.info("Performing mathematical operations:");
