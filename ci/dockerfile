@@ -9,6 +9,7 @@ RUN apt-get update && \
 ENV CCACHE_DIR=/build/.ccache \
     CCACHE_COMPILERCHECK=content
 
-RUN --mount=type=cache,target=/build/.ccache,sharing=locked \
+ARG BASE_IMAGE
+RUN --mount=type=cache,id=ccache-${BASE_IMAGE},target=/build/.ccache,sharing=locked \
     --mount=target=/DockerSandbox,rw \
         /DockerSandbox/ci/build.sh /DockerSandbox/ /build
