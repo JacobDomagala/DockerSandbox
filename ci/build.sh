@@ -1,9 +1,11 @@
 #!/bin/bash
+
+set -ex
 source_dir=$1
 build_dir=$2
 
 CCACHE_DIR=/build/.ccache
-CI_CCACHE_DIR=/build/ci/.ccache
+
 
 ccache -s
 
@@ -15,7 +17,8 @@ make
 
 ccache -s
 
-mkdir -p ${CI_CCACHE_DIR}
-cp -a "${CCACHE_DIR}/." "${CI_CCACHE_DIR}/"
-
-ls -a
+if [ "${CI_BUILD:-0}" = "1" ]; then
+  CI_CCACHE_DIR=/build/ci/.ccache
+  mkdir -p "${CI_CCACHE_DIR}"
+  cp -a "${CCACHE_DIR}/." "${CI_CCACHE_DIR}/"
+fi

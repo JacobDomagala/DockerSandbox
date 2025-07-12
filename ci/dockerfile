@@ -6,15 +6,17 @@ RUN apt-get update && \
     cmake g++ build-essential ccache && \
     rm -rf /var/lib/apt/lists/*
 
+ARG CI_BUILD
 ENV CCACHE_DIR=/build/.ccache \
-    CCACHE_COMPILERCHECK=content
+    CCACHE_COMPILERCHECK=content \
+    CI_BUILD=${CI_BUILD}
 
 ARG BASE_IMAGE
+
 
 RUN --mount=type=cache,id=${BASE_IMAGE},target=${CCACHE_DIR} \
     --mount=target=/DockerSandbox,rw \
     if [ -d /DockerSandbox/docker-output/build/ci/.ccache ]; then \
-        cp -a /DockerSandbox/docker-output/build/ci/.ccache/. ${CCACHE_DIR}/ && \
-        du -sh ${CCACHE_DIR}/; \
+        cp -a /DockerSandbox/docker-output/build/ci/.ccache/. ${CCACHE_DIR}/; \
     fi && \
     /DockerSandbox/ci/build.sh /DockerSandbox /build
