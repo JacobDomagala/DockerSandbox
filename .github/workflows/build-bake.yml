@@ -38,7 +38,7 @@ jobs:
       - name: Cache ccache
         uses: actions/cache@v4
         with:
-          path: docker-output/build/.ccache
+          path: docker-output/build/ci/.ccache
           key: ccache-${{ matrix.target }}-${{ github.ref }}-${{ github.sha }}
           restore-keys: |
             ccache-${{ matrix.target }}-${{ github.ref }}
