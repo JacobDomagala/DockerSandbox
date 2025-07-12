@@ -38,14 +38,11 @@ jobs:
       - name: Cache ccache
         uses: actions/cache@v4
         with:
-          path: tmp/ccache-data
+          path: docker-output/build/.ccache
           key: ccache-${{ matrix.target }}-${{ github.ref }}-${{ github.sha }}
           restore-keys: |
             ccache-${{ matrix.target }}-${{ github.ref }}
             ccache-${{ matrix.target }}-
-
-      - name: Ensure ccache dir
-        run: mkdir -p tmp/ccache-data && echo "Test" >> tmp/ccache-data/test.txt
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -60,4 +57,4 @@ jobs:
           set: |
             *.cache-from=type=gha,scope=${{ matrix.target }}
             *.cache-to=type=gha,scope=${{ matrix.target }},mode=max
-            *.output=type=local,dest=tmp/ccache-data
+            *.output=type=local,dest=docker-output
