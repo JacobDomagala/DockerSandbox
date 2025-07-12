@@ -14,12 +14,6 @@ target "build-all" {
   name = "build-${replace(item.image, ".", "-")}"
   inherits = ["build"]
   tags = ["jdomagala:project-${item.image}"]
-  output = [
-    {
-      type = "local"
-      dest = "docker-output/build-${replace(item.image, ".", "-")}"
-    }
-  ]
   args = {
     BASE_IMAGE = "${item.image}"
   }
