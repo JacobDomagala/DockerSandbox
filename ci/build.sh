@@ -6,7 +6,6 @@ ccache -s
 
 mkdir -p "${build_dir}"
 cd "${build_dir}" || exit 1
-rm -rf ./*
 
 export CCACHE_DIR=${build_dir}/.ccache
 

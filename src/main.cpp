@@ -2,9 +2,9 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include "utils/logger.h"
-#include "utils/config.h"
-#include "math/calculator.h"
+#include "utils/logger.hpp"
+#include "utils/config.hpp"
+#include "math/calculator.hpp"
 
 int main(int argc, char* argv[]) {
     Logger logger("SandboxApp");
