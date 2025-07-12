@@ -7,8 +7,6 @@ ccache -s
 mkdir -p "${build_dir}"
 cd "${build_dir}" || exit 1
 
-export CCACHE_DIR=${build_dir}/.ccache
-
 cmake -DCMAKE_CXX_COMPILER_LAUNCHER=ccache "${source_dir}"
 make
 
