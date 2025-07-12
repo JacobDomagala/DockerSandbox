@@ -6,5 +6,6 @@ RUN apt-get update && \
     cmake g++ build-essential ccache && \
     rm -rf /var/lib/apt/lists/*
 
-RUN --mount=target=/DockerSandbox,rw \
+RUN --mount=type=cache,target=/build/.ccache,sharing=locked \
+    --mount=target=/DockerSandbox,rw \
         /DockerSandbox/ci/build.sh /DockerSandbox/ /build

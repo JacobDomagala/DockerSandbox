@@ -52,5 +52,7 @@ jobs:
           source: .
           targets: ${{ matrix.target }}
           files: docker-bake.hcl
+          push: false
           set: |
-            ${{ hashFiles(format('docker-output/{0}/build/.ccache', matrix.target)) != '' && format('*.cache-mount=type=bind,source={0}/docker-output/{1}/build/.ccache,target=/build/.ccache', github.workspace, matrix.target) || '' }}
+            *.cache-from=type=gha,scope=${{ matrix.target }}
+            *.cache-to=type=gha,scope=${{ matrix.target }},mode=max
