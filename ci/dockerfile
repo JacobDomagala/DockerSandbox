@@ -11,10 +11,15 @@ ENV CCACHE_DIR=/build/.ccache \
 
 ARG BASE_IMAGE
 
-RUN --mount=target=/DockerSandbox,rw \
+RUN --mount=type=bind,target=/DockerSandbox,rw \
     mkdir -p /build/.ccache && \
-    if [ -d /DockerSandbox/tmp/ccache-data ] && \
-       [ "$(ls -A /DockerSandbox/tmp/ccache-data 2>/dev/null)" ]; then \
+    if [ -d /DockerSandbox/tmp/ccache-data ]; then \
+        echo "COPYING CASHE!" && \
+        ls -R /DockerSandbox/tmp/ccache-data/ && \
         cp -a /DockerSandbox/tmp/ccache-data/. /build/.ccache/ ; \
     fi && \
-    /DockerSandbox/ci/build.sh /DockerSandbox /build
+    /DockerSandbox/ci/build.sh /DockerSandbox /build && \
+    cp -a /build/.ccache/. /DockerSandbox/tmp/ccache-data/ && \
+    ls -R /build/.ccache/ && \
+    ls -R /DockerSandbox/tmp/ccache-data/
+
