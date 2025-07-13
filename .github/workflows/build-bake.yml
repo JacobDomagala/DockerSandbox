@@ -2,6 +2,7 @@ name: CI
 
 on:
   push:
+    branches: main
   pull_request:
 
 concurrency:
@@ -20,7 +21,7 @@ jobs:
         id: list-targets
         uses: docker/bake-action/subaction/list-targets@v6
         with:
-          target: build-all
+          target: build-all-ci
 
   bake:
     runs-on: ubuntu-latest

@@ -10,9 +10,14 @@ target "build" {
   ]
 }
 
-target "build-all" {
-  name = "build-${replace(item.image, ".", "-")}"
+target "artifacts" {
   inherits = ["build"]
+  target     = "artifacts"
+}
+
+target "build-all-ci" {
+  name = "build-${replace(item.image, ".", "-")}"
+  inherits = ["artifacts"]
   tags = ["jdomagala:project-${item.image}"]
   args = {
     BASE_IMAGE = "${item.image}"
