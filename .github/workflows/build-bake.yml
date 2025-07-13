@@ -40,13 +40,13 @@ jobs:
         id: setup-buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Cache ccache
+      - name: Cache ccache archive
+        id: ccache-archive
         uses: actions/cache@v4
         with:
-          path: docker-output/build/ci/.ccache
-          key: ccache-${{ matrix.target }}-${{ github.ref }}-${{ github.sha }}
+          path: ccache-archive
+          key: ccache-${{ matrix.target }}-${{ github.sha }}
           restore-keys: |
-            ccache-${{ matrix.target }}-${{ github.ref }}
             ccache-${{ matrix.target }}-
 
       - name: Inject ccache
@@ -55,11 +55,12 @@ jobs:
           builder: ${{ steps.setup-buildx.outputs.name }}
           cache-map: |
             {
-              "docker-output/build/ci/.ccache": {
+              "ccache-archive": {
                 "target": "/build/.ccache",
                 "id": "${{ matrix.target }}"
               }
             }
+          skip-extraction: ${{ steps.ccache-archive.outputs.cache-hit }}
 
       - name: Build
         uses: docker/bake-action@v6
@@ -69,5 +70,6 @@ jobs:
           files: docker-bake.hcl
           push: false
           set: |
-            *.cache-from=type=gha,scope=${{ matrix.target }}
-            *.cache-to=type=gha,scope=${{ matrix.target }},mode=max
+            *.cache-from=type=gha
+            *.cache-to=type=gha,mode=max
+            *.args.CACHE_ID=${{ matrix.target }}

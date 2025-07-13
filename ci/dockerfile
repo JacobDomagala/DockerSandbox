@@ -12,9 +12,9 @@ ENV CCACHE_DIR=/build/.ccache \
     CI_CCACHE_DIR=${CI_CCACHE_DIR}
 
 ARG BASE_IMAGE
+ARG CACHE_ID
 
-
-RUN --mount=type=cache,id=build-${BASE_IMAGE},target=${CCACHE_DIR} \
+RUN --mount=type=cache,id=${CACHE_ID},target=/build/.ccache,sharing=locked \
     --mount=target=/DockerSandbox,rw \
     /DockerSandbox/ci/build.sh /DockerSandbox /build
 
