@@ -52,7 +52,7 @@ jobs:
             {
               "docker-output/build/ci/.ccache": {
                 "target": "/build/.ccache",
-                "id": "1"
+                "id": "${{ matrix.target }}"
               }
             }
 
