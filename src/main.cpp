@@ -21,9 +21,9 @@ int main(int argc, char* argv[]) {
 
     // Perform some sample calculations
     std::vector<std::pair<double, double>> testCases = {
-        {10.0, 5.0},
-        {25.0, 4.0},
-        {100.0, 11.0},
+        {11.0, 5.0},
+        {35.0, 4.0},
+        {120.0, 11.0},
         {3.14159,32.0}
     };
 

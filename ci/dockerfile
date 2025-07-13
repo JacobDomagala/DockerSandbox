@@ -12,11 +12,11 @@ ENV CCACHE_DIR=/build/.ccache \
     CI_CCACHE_DIR=${CI_CCACHE_DIR}
 
 ARG BASE_IMAGE
+ARG CACHE_ID
 
-
-RUN --mount=type=cache,id=${BASE_IMAGE},target=${CCACHE_DIR} \
+RUN --mount=type=cache,id=${CACHE_ID},target=/build/.ccache,sharing=locked \
     --mount=target=/DockerSandbox,rw \
-    if [ -d /DockerSandbox/docker-output/build/ci/.ccache ]; then \
-        cp -a /DockerSandbox/docker-output/build/ci/.ccache/. ${CCACHE_DIR}/; \
-    fi && \
     /DockerSandbox/ci/build.sh /DockerSandbox /build
+
+FROM scratch AS artifacts
+COPY --from=build /build/ /build/
