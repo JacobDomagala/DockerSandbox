@@ -45,6 +45,17 @@ jobs:
             ccache-${{ matrix.target }}-${{ github.ref }}
             ccache-${{ matrix.target }}-
 
+      - name: Inject ccache
+        uses: reproducible-containers/buildkit-cache-dance@v3
+        with:
+          cache-map: |
+            {
+              "docker-output/build/ci/.ccache": {
+                "target": "/build/.ccache",
+                "id": "1"
+              }
+            }
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
@@ -58,5 +69,3 @@ jobs:
           set: |
             *.cache-from=type=gha,scope=${{ matrix.target }}
             *.cache-to=type=gha,scope=${{ matrix.target }},mode=max
-            *.output=type=local,dest=docker-output
-            *.args.CI_CCACHE_DIR="/build/ci/.ccache"
