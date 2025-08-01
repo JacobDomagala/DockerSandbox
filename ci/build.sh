@@ -17,6 +17,8 @@ cd "${build_dir}" || exit 1
 cmake -DCMAKE_CXX_COMPILER_LAUNCHER=ccache "${source_dir}"
 make
 
+git status
+
 ccache -s
 
 ls -R /build/.ccache
