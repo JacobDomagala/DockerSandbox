@@ -11,13 +11,17 @@ du -sh /build/.ccache
 
 ccache -s
 
+cd ${source_dir}
+
+git status
+
 mkdir -p "${build_dir}"
 cd "${build_dir}" || exit 1
 
 cmake -DCMAKE_CXX_COMPILER_LAUNCHER=ccache "${source_dir}"
 make
 
-git status
+
 
 ccache -s
 
